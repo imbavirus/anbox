@@ -156,6 +156,7 @@ class TypedReferenceFlag : public Flag {
 
   std::istream& operator>>(anbox::graphics::GLRendererServer::Config::Driver& driver)
   {
+    std::istream& in;
     std::string str(std::istreambuf_iterator<char>(in), {});
     if (str.empty() || str == "translator")
       driver = anbox::graphics::GLRendererServer::Config::Driver::Translator;
