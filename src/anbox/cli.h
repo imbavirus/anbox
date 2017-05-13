@@ -153,7 +153,7 @@ class TypedReferenceFlag : public Flag {
   /// from value, relying on operator>> to read from given string s.
   void specify_option(Flag::Specification& spec) override {
     spec = boost::program_options::value<std::string>()->notifier([&](const std::string& s) {
-      std::istream ss{s};
+      std::stringstream ss{s};
       ss >> value_.get();
     });
   }
