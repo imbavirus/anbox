@@ -156,15 +156,14 @@ class TypedReferenceFlag : public Flag {
 
   std::istream& operator>>(anbox::graphics::GLRendererServer::Config::Driver& driver)
   {
-    std::istream& in;
-    std::string str(std::istreambuf_iterator<char>(in), {});
+    std::string str(std::istreambuf_iterator<char>(this), {});
     if (str.empty() || str == "translator")
       driver = anbox::graphics::GLRendererServer::Config::Driver::Translator;
     else if (str == "host")
       driver = anbox::graphics::GLRendererServer::Config::Driver::Host;
     else
      BOOST_THROW_EXCEPTION(std::runtime_error("Invalid GLES driver value provided"));
-    return in;
+    return this;
   }
 
   void specify_option(Flag::Specification& spec) override {
