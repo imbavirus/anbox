@@ -39,8 +39,6 @@ endif()
 string(TOLOWER "${CMAKE_BUILD_TYPE}" cmake_build_type_lower)
 
 if ("${cmake_build_type_lower}" STREQUAL "release" OR "${cmake_build_type_lower}" STREQUAL "relwithdebinfo")
-  option(Werror "Treat warnings as errors" ON)
-else()
   option(Werror "Treat warnings as errors" OFF)
 endif()
 
