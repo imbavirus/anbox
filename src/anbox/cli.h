@@ -154,7 +154,7 @@ class TypedReferenceFlag : public Flag {
   void specify_option(Flag::Specification& spec) override {
     spec = boost::program_options::value<std::string>()->notifier([&](const std::string& s) {
       std::stringstream ss{s};
-      ss >> value_.get();
+      //ss >> value_.get();
     });
   }
 
