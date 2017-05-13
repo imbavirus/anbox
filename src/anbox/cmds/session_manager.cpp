@@ -54,21 +54,30 @@
 
 namespace fs = boost::filesystem;
 
-namespace
-{
-    const anbox::graphics::Rect default_single_window_size{0, 0, 1024, 768};
+namespace {
+const anbox::graphics::Rect default_single_window_size{0, 0, 1024, 768};
 
-    class NullConnectionCreator : public anbox::network::ConnectionCreator<boost::asio::local::stream_protocol>
-    {
-     public:
-      void create_connection_for(std::shared_ptr<boost::asio::local::stream_protocol::socket> const &socket) override
-      {
-        WARNING("Not implemented");
-        socket->close();
-      }
-    };
+class NullConnectionCreator : public anbox::network::ConnectionCreator<
+                                  boost::asio::local::stream_protocol> {
+ public:
+  void create_connection_for(
+      std::shared_ptr<boost::asio::local::stream_protocol::socket> const
+          &socket) override {
+    WARNING("Not implemented");
+    socket->close();
+  }
+};
 
-
+std::istream& operator>>(std::istream& in, anbox::graphics::GLRendererServer::Config::Driver& driver) {
+  std::string str(std::istreambuf_iterator<char>(in), {});
+  if (str.empty() || str == "translator")
+    driver = anbox::graphics::GLRendererServer::Config::Driver::Translator;
+  else if (str == "host")
+    driver = anbox::graphics::GLRendererServer::Config::Driver::Host;
+  else
+   BOOST_THROW_EXCEPTION(std::runtime_error("Invalid GLES driver value provided"));
+  return in;
+}
 }
 
 anbox::cmds::SessionManager::BusFactory anbox::cmds::SessionManager::session_bus_factory() {
