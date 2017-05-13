@@ -30,6 +30,8 @@
 
 #include "anbox/do_not_copy_or_move.h"
 #include "anbox/optional.h"
+#include "anbox/graphics/gl_renderer_server.h"
+#include "anbox/graphics/rect.h"
 
 #include <boost/program_options.hpp>
 
